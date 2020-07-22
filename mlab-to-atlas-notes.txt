@@ -1,0 +1,25 @@
+mlab-to-atlas-notes.txt
+
+Tools for mLab import/export:
+https://www.mlab.com/databases/heroku_w4wbbjp2#tools
+
+Find out db, password and user name by running 'heroku config' and checking the MONGODB_URI
+
+mongodb://heroku_w4wbbjp2:naa7cgorl53b4l15bc83kqjt1d@ds235378.mlab.com:35378/heroku_w4wbbjp2
+
+Export from mLab:
+
+mongodump -h ds235378.mlab.com:35378 -d heroku_w4wbbjp2 -u heroku_w4wbbjp2 -p naa7cgorl53b4l15bc83kqjt1d -o dump_july13
+
+Create cluster and user in Atlas:
+
+issue_tracker_user
+qHV5TaEx2BKUgOA0
+
+Check command line tools in Atlas for mongorestore (import)
+
+mongorestore --host atlas-db3t0z-shard-0/cluster0-shard-00-00.cbiri.gcp.mongodb.net:27017,cluster0-shard-00-01.cbiri.gcp.mongodb.net:27017,cluster0-shard-00-02.cbiri.gcp.mongodb.net:27017 --ssl --username issue_tracker_user --password qHV5TaEx2BKUgOA0 --authenticationDatabase admin dump_july13
+
+Set heroku environment variable to new database (database name will be the same as before)
+
+heroku config:set MONGODB_URI=mongodb+srv://issue_tracker_user:qHV5TaEx2BKUgOA0@cluster0.cbiri.gcp.mongodb.net/heroku_w4wbbjp2?retryWrites=true&w=majority

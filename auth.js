@@ -64,7 +64,6 @@ routes.post('/signin', async (req, res) => {
     httpOnly: true,
     domain: process.env.COOKIE_DOMAIN,
   });
-
   res.json(credentials);
 });
 
